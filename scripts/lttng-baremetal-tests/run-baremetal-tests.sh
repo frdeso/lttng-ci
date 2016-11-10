@@ -16,7 +16,11 @@
 
 echo 'At this point, we built the modules and kernel if we needed to.'
 echo 'We can now launch the lava job using those artefacts'
-git clone https://github.com/lttng/lttng-ci "$LTTNG_CI_PATH"
+git clone https://github.com/frdeso/lttng-ci "$LTTNG_CI_PATH"
+
+cd lttng-ci
+git checkout baremetal_tests
+cd -
 
 python3 -u "$LTTNG_CI_PATH"/scripts/lttng-baremetal-tests/lava-submit.py \
                           -t baremetal-tests \
