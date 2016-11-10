@@ -1,5 +1,5 @@
 - defaults:
-    name: baremetal_benchmarks
+    name: frdeso_baremetal_benchmarks
     description: |
       Runs baremetal kernel tests over different combination of kernel and lttng configurations.
 
@@ -75,7 +75,7 @@
       - shell: !include-raw-escape: scripts/lttng-baremetal-tests/generate-properties-master.sh
       - shell: !include-raw-escape: scripts/lttng-baremetal-tests/inject-ssh-commands.sh
       - trigger-builds:
-        - project: "build_kernel_PARAM"
+        - project: "frdeso_build_kernel_PARAM"
           property-file: 'properties.txt'
           block: true
       - inject:
@@ -84,7 +84,7 @@
       - shell: !include-raw-escape: scripts/lttng-baremetal-tests/summarize-results.sh
 
 - defaults:
-    name: vm_tests
+    name: frdeso_vm_tests
     description: |
       Runs baremetal kernel tests over different combination of kernel and lttng configurations.
     project-type: freestyle
@@ -143,16 +143,12 @@
     publishers:
       - email:
           recipients: 'francis.deslauriers@efficios.com'
-      - ircbot:
-          strategy: new-failure-and-fixed
-          channels:
-            - name: '#lttng'
       - workspace-cleanup
 
     builders:
       - shell: !include-raw-escape: scripts/lttng-baremetal-tests/generate-properties-master.sh
       - trigger-builds:
-        - project: "build_kernel_PARAM"
+        - project: "frdeso_build_kernel_PARAM"
           property-file: 'properties.txt'
           block: true
       - inject:
@@ -160,7 +156,7 @@
       - shell: !include-raw-escape: scripts/lttng-baremetal-tests/run-kvm-tests.sh
 
 - defaults:
-    name: baremetal_tests
+    name: frdeso_baremetal_tests
     description: |
       Runs baremetal kernel tests over different combination of kernel and lttng configurations.
     project-type: freestyle
@@ -218,16 +214,12 @@
     publishers:
       - email:
           recipients: 'francis.deslauriers@efficios.com'
-      - ircbot:
-          strategy: new-failure-and-fixed
-          channels:
-            - name: '#lttng'
       - workspace-cleanup
 
     builders:
       - shell: !include-raw-escape: scripts/lttng-baremetal-tests/generate-properties-master.sh
       - trigger-builds:
-        - project: "build_kernel_PARAM"
+        - project: "frdeso_build_kernel_PARAM"
           property-file: 'properties.txt'
           block: true
       - inject:
@@ -235,37 +227,37 @@
       - shell: !include-raw-escape: scripts/lttng-baremetal-tests/run-baremetal-tests.sh
 
 - job-template:
-    name: baremetal_benchmarks_k{kversion}_l{lttngversion}
-    defaults: baremetal_benchmarks
+    name: frdeso_baremetal_benchmarks_k{kversion}_l{lttngversion}
+    defaults: frdeso_baremetal_benchmarks
 - job-template:
-    name: vm_tests_k{kversion}_l{lttngversion}
-    defaults: vm_tests
+    name: frdeso_vm_tests_k{kversion}_l{lttngversion}
+    defaults: frdeso_vm_tests
 - job-template:
-    name: baremetal_tests_k{kversion}_l{lttngversion}
-    defaults: baremetal_tests
+    name: frdeso_baremetal_tests_k{kversion}_l{lttngversion}
+    defaults: frdeso_baremetal_tests
 
 # Canary jobs are made to confirm that the whole Lava pipeline is working.
 # They are scheduled once a day always on the same (LTTng, Kernel) code. If any
 # of those jobs fails, it means that there is an issue with the configuration
 - job-template:
-    name: baremetal_tests_k{kversion}_l{lttngversion}_canary
-    defaults: baremetal_tests
+    name: frdeso_baremetal_tests_k{kversion}_l{lttngversion}_canary
+    defaults: frdeso_baremetal_tests
     triggers:
       - timed: "@daily"
 - job-template:
-    name: vm_tests_k{kversion}_l{lttngversion}_canary
-    defaults: vm_tests
+    name: frdeso_vm_tests_k{kversion}_l{lttngversion}_canary
+    defaults: frdeso_vm_tests
     triggers:
       - timed: "@daily"
 - job-template:
-    name: baremetal_benchmarks_k{kversion}_l{lttngversion}_canary
-    defaults: baremetal_benchmarks
+    name: frdeso_baremetal_benchmarks_k{kversion}_l{lttngversion}_canary
+    defaults: frdeso_baremetal_benchmarks
     triggers:
       - timed: "@daily"
 
 - job-template:
-    name: vm_tests_kmainline_l{lttngversion}
-    defaults: vm_tests
+    name: frdeso_vm_tests_kmainline_l{lttngversion}
+    defaults: frdeso_vm_tests
     triggers:
       - pollscm:
           cron: "@daily"
@@ -295,8 +287,8 @@
           basedir: src/linux
 
 - job-template:
-    name: baremetal_tests_kmainline_l{lttngversion}
-    defaults: baremetal_tests
+    name: frdeso_baremetal_tests_kmainline_l{lttngversion}
+    defaults: frdeso_baremetal_tests
     triggers:
       - pollscm:
           cron: "@daily"
@@ -326,8 +318,8 @@
           basedir: src/linux
 
 - job-template:
-    name: baremetal_benchmarks_kmainline_l{lttngversion}
-    defaults: baremetal_benchmarks
+    name: frdeso_baremetal_benchmarks_kmainline_l{lttngversion}
+    defaults: frdeso_baremetal_benchmarks
     triggers:
       - pollscm:
           cron: "@daily"
@@ -357,7 +349,7 @@
           basedir: src/linux
 
 - job:
-    name: build_kernel_PARAM
+    name: frdeso_build_kernel_PARAM
     description: |
       Builds a Linux Kernel and LTTng Modules if necessary
     defaults: global
@@ -427,7 +419,7 @@
 
 ## Project
 - project:
-    name: lttng-kernel-tests
+    name: frdeso-lttng-kernel-tests
     kversion:
       - linux-4.4.y
       - linux-4.8.y
@@ -437,38 +429,38 @@
       - stable-2.8
       - stable-2.9
     jobs:
-      - 'vm_tests_k{kversion}_l{lttngversion}'
-      - 'baremetal_benchmarks_k{kversion}_l{lttngversion}'
-      - 'baremetal_tests_k{kversion}_l{lttngversion}'
+      - 'frdeso_vm_tests_k{kversion}_l{lttngversion}'
+      - 'frdeso_baremetal_benchmarks_k{kversion}_l{lttngversion}'
+      - 'frdeso_baremetal_tests_k{kversion}_l{lttngversion}'
 
 - project:
-    name: lttng-kernel-tests-oldkernel
+    name: frdeso-lttng-kernel-tests-oldkernel
     kversion:
       - linux-3.18.y
       - linux-4.4.y
     lttngversion:
       - stable-2.7
     jobs:
-      - 'vm_tests_k{kversion}_l{lttngversion}':
-      - 'baremetal_tests_k{kversion}_l{lttngversion}':
-      - 'baremetal_benchmarks_k{kversion}_l{lttngversion}':
+      - 'frdeso_vm_tests_k{kversion}_l{lttngversion}':
+      - 'frdeso_baremetal_tests_k{kversion}_l{lttngversion}':
+      - 'frdeso_baremetal_benchmarks_k{kversion}_l{lttngversion}':
 
 - project:
-    name: lttng-kernel-tests-canary
+    name: frdeso-lttng-kernel-tests-canary
     kversion:
       - v4.4.9
     lttngversion:
       - v2.8.1
     jobs:
-      - 'vm_tests_k{kversion}_l{lttngversion}_canary'
-      - 'baremetal_tests_k{kversion}_l{lttngversion}_canary'
-      - 'baremetal_benchmarks_k{kversion}_l{lttngversion}_canary'
+      - 'frdeso_vm_tests_k{kversion}_l{lttngversion}_canary'
+      - 'frdeso_baremetal_tests_k{kversion}_l{lttngversion}_canary'
+      - 'frdeso_baremetal_benchmarks_k{kversion}_l{lttngversion}_canary'
 
 - project:
-    name: lttng-kernel-tests-mainline
+    name: frdeso-lttng-kernel-tests-mainline
     lttngversion:
       - v2.8.1
     jobs:
-      - 'vm_tests_kmainline_l{lttngversion}'
-      - 'baremetal_tests_kmainline_l{lttngversion}'
-      - 'baremetal_benchmarks_kmainline_l{lttngversion}'
+      - 'frdeso_vm_tests_kmainline_l{lttngversion}'
+      - 'frdeso_baremetal_tests_kmainline_l{lttngversion}'
+      - 'frdeso_baremetal_benchmarks_kmainline_l{lttngversion}'

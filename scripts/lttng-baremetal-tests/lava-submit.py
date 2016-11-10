@@ -183,18 +183,18 @@ def get_baremetal_benchmarks_cmd():
         'parameters': {
             'testdef_repos': [
                 {
-                    'git-repo': 'https://github.com/lttng/lttng-ci.git',
-                    'revision': 'master',
+                    'git-repo': 'https://github.com/frdeso/lttng-ci.git',
+                    'revision': 'baremetal_tests',
                     'testdef': 'lava/baremetal-tests/failing-close.yml'
                 },
                 {
-                    'git-repo': 'https://github.com/lttng/lttng-ci.git',
-                    'revision': 'master',
+                    'git-repo': 'https://github.com/frdeso/lttng-ci.git',
+                    'revision': 'baremetal_tests',
                     'testdef': 'lava/baremetal-tests/failing-open-efault.yml'
                 },
                 {
-                    'git-repo': 'https://github.com/lttng/lttng-ci.git',
-                    'revision': 'master',
+                    'git-repo': 'https://github.com/frdeso/lttng-ci.git',
+                    'revision': 'baremetal_tests',
                     'testdef': 'lava/baremetal-tests/failing-open-enoent.yml'
                 }
                 ],
@@ -209,8 +209,8 @@ def get_baremetal_tests_cmd():
         'parameters': {
             'testdef_repos': [
                 {
-                    'git-repo': 'https://github.com/lttng/lttng-ci.git',
-                    'revision': 'master',
+                    'git-repo': 'https://github.com/frdeso/lttng-ci.git',
+                    'revision': 'baremetal_tests',
                     'testdef': 'lava/baremetal-tests/perf-tests.yml'
                 }
                 ],
@@ -225,13 +225,13 @@ def get_kvm_tests_cmd():
         'parameters': {
             'testdef_repos': [
                 {
-                    'git-repo': 'https://github.com/lttng/lttng-ci.git',
-                    'revision': 'master',
+                    'git-repo': 'https://github.com/frdeso/lttng-ci.git',
+                    'revision': 'baremetal_tests',
                     'testdef': 'lava/baremetal-tests/kernel-tests.yml'
                 },
                 {
-                    'git-repo': 'https://github.com/lttng/lttng-ci.git',
-                    'revision': 'master',
+                    'git-repo': 'https://github.com/frdeso/lttng-ci.git',
+                    'revision': 'baremetal_tests',
                     'testdef': 'lava/baremetal-tests/destructive-tests.yml'
                 }
                 ],
