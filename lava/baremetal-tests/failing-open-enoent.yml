@@ -12,10 +12,10 @@ install:
         git-repos:
                 - url: https://github.com/frdeso/syscall-bench-it.git
                   destination: benchmarks
-                  branch: master
+                  branch: debug_open_enoent
                 - url: https://github.com/frdeso/lttng-ci
                   destination: ci
-                  branch: baremetal_tests
+                  branch: debug_open_enoent
         steps:
                 - export TMPDIR="/tmp"
                 - ulimit -c unlimited

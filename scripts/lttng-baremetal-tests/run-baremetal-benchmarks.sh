@@ -19,7 +19,7 @@ echo 'We can now launch the lava job using those artefacts'
 git clone https://github.com/frdeso/lttng-ci
 
 cd lttng-ci
-git checkout baremetal_tests
+git checkout debug_open_enoent
 cd -
 
 python3 -u lttng-ci/scripts/lttng-baremetal-tests/lava-submit.py \
