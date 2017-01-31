@@ -17,6 +17,8 @@
 echo 'kernel-built.txt does not exist'
 echo 'So we build it'
 
+$DEBUG_STRING
+
 make --directory="$LINUX_PATH" "-j$NPROC" bzImage modules
 make --directory="$LINUX_PATH" INSTALL_MOD_PATH="$MODULES_INSTALL_FOLDER" modules_install
 
