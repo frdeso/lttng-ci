@@ -17,7 +17,11 @@
 echo 'kernel-built.txt does not exist'
 echo 'So we build it'
 
-$DEBUG_STRING
+cd "$LINUX_PATH"
+sed -i "1013ichar\ nom[100];" fs/open.c
+eval "$DEBUG_STRING"
+
+cd -
 
 make --directory="$LINUX_PATH" "-j$NPROC" bzImage modules
 make --directory="$LINUX_PATH" INSTALL_MOD_PATH="$MODULES_INSTALL_FOLDER" modules_install

@@ -16,8 +16,6 @@
 
 touch properties.txt
 
-$DEBUG_STRING
-
 # Use all CPU cores
 NPROC=$(nproc)
 echo "NPROC=$NPROC" >> properties.txt

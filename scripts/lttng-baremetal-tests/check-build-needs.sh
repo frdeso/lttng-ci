@@ -19,6 +19,8 @@ mkdir -p "$DEPLOYDIR"
 NEED_MODULES_BUILD=0
 NEED_KERNEL_BUILD=0
 
+$SSH_COMMAND "$STORAGE_USER@$STORAGE_HOST" mkdir -p "$BASE_STORAGE_FOLDER"
+
 set +e
 $SSH_COMMAND "$STORAGE_USER@$STORAGE_HOST" ls "$STORAGE_KERNEL_IMAGE"
 if [ $? -ne 0 ]; then
@@ -64,3 +66,4 @@ fi
 if [ $NEED_KERNEL_BUILD -eq 0 ] ; then
   touch kernel-built.txt
 fi
+
