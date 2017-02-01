@@ -61,10 +61,6 @@ def create_plot(df, graph_type):
     # We map all test configurations and their
     # respective color
     conf_to_color = OrderedDict([
-        ('basel_1thr','lightcoral'),
-        ('lttng_1thr','red'),
-        ('basel_2thr','gray'),
-        ('lttng_2thr','black'),
         ('basel_4thr','chartreuse'),
         ('lttng_4thr','forestgreen'),
         ('basel_8thr','deepskyblue'),
