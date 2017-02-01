@@ -316,8 +316,6 @@ def get_env_setup_cmd(build_device, lttng_tools_commit, lttng_ust_commit=None):
 
     vlttng_cmd += ' '+virtenv_path
 
-    command['parameters']['commands'].append(vlttng_cmd)
-    command['parameters']['commands'].append('ln -s '+virtenv_path+' /root/lttngvenv')
     command['parameters']['commands'].append('sync')
 
     return command
