@@ -90,6 +90,7 @@ def create_plot(df, graph_type):
     f.suptitle(title, fontsize=20)
 
     for (ax, data_cols)  in zip(arrax, plots):
+        print(data_cols)
         curr_df = df[data_cols]
 
         stdev_cols = ['{}_stdev'.format(x) for x in data_cols]
