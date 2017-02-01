@@ -2,65 +2,6 @@
     name: frdeso_baremetal_benchmarks
     description: |
       Runs baremetal kernel tests over different combination of kernel and lttng configurations.
-
-    wrappers:
-      - workspace-cleanup
-      - timestamps
-      - ansicolor
-      - credentials-binding:
-          - text:
-              credential-id: jenkins_lava_key
-              variable: LAVA_JENKINS_TOKEN
-          - file:
-              credential-id: system_tests_storage_key
-              variable: identity_file
-      - inject:
-          properties-content: |
-            TOOLS_BRANCH={lttngversion}
-            UST_BRANCH={lttngversion}
-            BUILD_DEVICE=baremetal
-    publishers:
-      - archive:
-          artifacts: '*.png,*.csv'
-          stable: true
-          do-not-fingerprint: true
-      - email:
-          recipients: 'francis.deslauriers@efficios.com'
-      - image-gallery:
-        - gallery-type: archived-images-gallery
-          title: Results
-          includes: '*.png'
-      - workspace-cleanup
-    scm:
-      - git:
-          url: git://git-mirror.internal.efficios.com/lttng/lttng-tools.git
-          branches:
-            - "{lttngversion}"
-          shallow-clone: true
-          skip-tag: true
-          fastpoll: true
-          basedir: src/lttng-tools
-      - git:
-          url: git://git-mirror.internal.efficios.com/lttng/lttng-modules.git
-          branches:
-            - "{lttngversion}"
-          shallow-clone: true
-          skip-tag: true
-          fastpoll: true
-          basedir: src/lttng-modules
-      - git:
-          url: git://git-mirror.internal.efficios.com/kernel/stable/linux-stable.git
-          branches:
-            - "{kversion}"
-          shallow-clone: true
-          skip-tag: true
-          fastpoll: true
-          basedir: src/linux
-
-
-- job:
-    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no1
-    defaults: frdeso_baremetal_benchmarks
     triggers:
       - pollscm:
           cron: "@hourly"
@@ -75,6 +16,19 @@
             - 'baremetal-tests'
     project-type: freestyle
     node: 'x86-64'
+
+    publishers:
+      - archive:
+          artifacts: '*.png,*.csv'
+          stable: true
+          do-not-fingerprint: true
+      - email:
+          recipients: 'francis.deslauriers@efficios.com'
+      - image-gallery:
+        - gallery-type: archived-images-gallery
+          title: Results
+          includes: '*.png'
+      - workspace-cleanup
     scm:
       - git:
           url: git://git-mirror.internal.efficios.com/lttng/lttng-tools.git
@@ -100,6 +54,23 @@
           skip-tag: true
           fastpoll: true
           basedir: src/linux
+
+    builders:
+      - shell: !include-raw: scripts/lttng-baremetal-tests/generate-properties-master.sh
+      - shell: !include-raw: scripts/lttng-baremetal-tests/inject-ssh-commands.sh
+      - trigger-builds:
+        - project: "frdeso_build_kernel_PARAM_debug"
+          property-file: 'properties.txt'
+          block: true
+      - inject:
+          properties-file: properties.txt
+      - shell: !include-raw: scripts/lttng-baremetal-tests/run-baremetal-benchmarks.sh
+      - shell: !include-raw: scripts/lttng-baremetal-tests/summarize-results.sh
+
+
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no1
+    defaults: frdeso_baremetal_benchmarks
     wrappers:
       - workspace-cleanup
       - timestamps
@@ -116,19 +87,128 @@
             TOOLS_BRANCH=v2.8.1
             UST_BRANCH=v2.8.1
             BUILD_DEVICE=baremetal
-            DEBUG_STRING='echo BONJOURALLO'
-
-    builders:
-      - shell: !include-raw: scripts/lttng-baremetal-tests/generate-properties-master.sh
-      - shell: !include-raw: scripts/lttng-baremetal-tests/inject-ssh-commands.sh
-      - trigger-builds:
-        - project: "frdeso_build_kernel_PARAM_debug"
-          property-file: 'properties.txt'
-          block: true
+            DEBUG_STRING=echo BONJOURALLO
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no2
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
       - inject:
-          properties-file: properties.txt
-      - shell: !include-raw: scripts/lttng-baremetal-tests/run-baremetal-benchmarks.sh
-      - shell: !include-raw: scripts/lttng-baremetal-tests/summarize-results.sh
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1017iprintk(KERN_INFO\ \"ALLO\");\' fs/open.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no3
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+          script-content: |
+            sed -i \'1017iprintk(KERN_INFO\ \"bonjour\");\' fs/open.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no4
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1017iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){return\ ERR_PTR(-ENOENT);}\' fs/open.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no5
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1019iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){putname(tmp);return\ ERR_PTR(-ENOENT);}\' fs/open.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no6
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1023iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){putname(tmp);return\ ERR_PTR(-ENOENT);}\' fs/open.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_no7
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1033iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){putname(tmp);return\ ERR_PTR(-ENOENT);}\' fs/open.c
 
 #---------------- end debug-----------------------
 - job:
@@ -182,6 +262,9 @@
       - string:
           name: 'KGITREPO'
           description: 'The kernel git repo to fetch from'
+      - string:
+          name: 'BASE_STORAGE_FOLDER'
+          description: 'Path to store the run data'
       - string:
           name: 'STORAGE_KERNEL_FOLDER'
           description: 'Path to store the Kernel image'
