@@ -77,11 +77,11 @@ def create_plot(df, graph_type):
     lttng = [x for x in conf_to_color.keys() if 'lttng' in x]
     one_thr = [x for x in conf_to_color.keys() if '_1thr' in x]
     two_thr = [x for x in conf_to_color.keys() if '_2thr' in x]
-    four_thr = [x for x in conf_to_color.keys() if '_4thr' in x]
-    eight_thr = [x for x in conf_to_color.keys() if '_8thr' in x]
-    sixteen_thr = [x for x in conf_to_color.keys() if '_16thr' in x]
+    four_thr = [x for x in conf_to_color.keys() if '_4thr' in x and 'lttng' not in x]
+    eight_thr = [x for x in conf_to_color.keys() if '_8thr' in x and 'lttng' not in x]
+    sixteen_thr = [x for x in conf_to_color.keys() if '_16thr' in x and 'lttng' not in x]
 
-    plots = [baseline, lttng, one_thr, two_thr, four_thr, eight_thr, sixteen_thr]
+    plots = [baseline, four_thr, eight_thr, sixteen_thr]
 
     title='Meantime per syscalls for {} testcase'.format(graph_type)
 
