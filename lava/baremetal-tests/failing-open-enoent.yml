@@ -33,5 +33,7 @@ run:
                 - mv ./processed_results.csv ../processed_results_open_enoent.csv
                 - cd -
                 - tar czf coredump.tar.gz coredump
+                - dmesg > dmesg.log
+                - lava-test-case-attach run-benchmarks dmesg.log
                 - lava-test-case-attach run-benchmarks coredump.tar.gz
                 - lava-test-case-attach run-benchmarks "./processed_results_open_enoent.csv"

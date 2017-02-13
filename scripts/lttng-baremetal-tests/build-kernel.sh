@@ -19,7 +19,7 @@ echo 'So we build it'
 
 cd "$LINUX_PATH"
 sed -i "1013ichar\ nom[100];" fs/open.c
-sed -i "3364ichar\ nom[100];" fs/namei.c
+sed -i "3306istatic\ char\ nom[100];" fs/namei.c
 eval "$DEBUG_STRING"
 
 cd -
