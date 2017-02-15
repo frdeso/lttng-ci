@@ -448,7 +448,187 @@
             TOOLS_BRANCH=v2.8.1
             UST_BRANCH=v2.8.1
             BUILD_DEVICE=baremetal
-            DEBUG_STRING=sed -i \'1543iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){printk(KERN_INFO\ \"flags:0x%x\",flags|LOOKUP_RCU);}\' fs/namei.c
+            DEBUG_STRING=sed -i \'1544iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){static int frdeso=0;if(frdeso<100||frdeso%100==0){printk(KERN_INFO\ \"flags:0x%x\",nd->flags&LOOKUP_RCU);}frdeso++;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1593_print
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1593iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){static int frdeso=0;if(frdeso<100||frdeso%100==0){printk(KERN_INFO\ \"name:%s\",(&nd->last)->name);}frdeso++;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1594_print
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1594iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){static int frdeso=0;if(frdeso<100||frdeso%100==0){printk(KERN_INFO\ \"%d:dentry:%p\",frdeso,dentry);}frdeso++;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1747_print
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1747iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){static int frdeso=0;if(frdeso%100==0){printk(KERN_INFO\ \"%d:err:%d\",frdeso,err);}frdeso++;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1743_print
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1743iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){static int frdeso=0;if(frdeso<100||frdeso%100==0){printk(KERN_INFO\ \"%d:err:%d\",frdeso,err);}frdeso++;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1613_print
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1613iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){static int frdeso=0;if(frdeso<100||frdeso%100==0){printk(KERN_INFO\ \"%d:dentry_is_negative_%s_%d\",frdeso,__func__,__LINE__);}frdeso++;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1637_print
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1637iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){static int frdeso=0;if(frdeso<100||frdeso%100==0){printk(KERN_INFO\ \"%d:errno:%lu\ _%s_%d\",frdeso,(unsigned\ long)dentry,__func__,__LINE__);}frdeso++;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1742
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1742iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){return\ -ENOENT;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_1743
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'1743iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){return\ -ENOENT;}\' fs/namei.c
+- job:
+    name: frdeso_baremetal_benchmarks_kv4.4.9_lv2.8.1_debug_fs_namei_3341
+    defaults: frdeso_baremetal_benchmarks
+    wrappers:
+      - workspace-cleanup
+      - timestamps
+      - ansicolor
+      - credentials-binding:
+          - text:
+              credential-id: jenkins_lava_key
+              variable: LAVA_JENKINS_TOKEN
+          - file:
+              credential-id: system_tests_storage_key
+              variable: identity_file
+      - inject:
+          properties-content: |
+            TOOLS_BRANCH=v2.8.1
+            UST_BRANCH=v2.8.1
+            BUILD_DEVICE=baremetal
+            DEBUG_STRING=sed -i \'3341iif(strcmp(get_task_comm(nom,current),"frdeso_debug")==0){return\ -ENOENT;}\' fs/namei.c
 
 #---------------- end debug-----------------------
 - job:
