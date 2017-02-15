@@ -70,7 +70,10 @@ def check_job_all_test_cases_state_count(server, job):
 # save them as CSV files localy
 def fetch_benchmark_results(server, job):
     content = get_job_bundle_content(server, job)
-    testcases = ['processed_results_close.csv', 'processed_results_open_enoent.csv', 'processed_results_open_efault.csv']
+    testcases = ['processed_results_close.csv',
+            'processed_results_open_enoent.csv',
+            'processed_results_open_efault.csv',
+            'processed_results_open_dup_close_success.csv']
 
     # The result bundle is a large JSON containing the results of every testcase
     # of the LAVA job as well as the files that were attached during the run.
@@ -185,7 +188,7 @@ def get_baremetal_benchmarks_cmd():
                 {
                     'git-repo': 'https://github.com/frdeso/lttng-ci.git',
                     'revision': 'debug_open_enoent',
-                    'testdef': 'lava/baremetal-tests/failing-open-enoent.yml'
+                    'testdef': 'lava/baremetal-tests/success-open-dup-close.yml'
                 }
                 ],
             'timeout': 18000
