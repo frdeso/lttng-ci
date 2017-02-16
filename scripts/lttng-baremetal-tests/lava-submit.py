@@ -189,7 +189,7 @@ def get_baremetal_benchmarks_cmd():
                 {
                     'git-repo': 'https://github.com/frdeso/lttng-ci.git',
                     'revision': 'debug_open_enoent',
-                    'testdef': 'lava/baremetal-tests/success-open-close.yml'
+                    'testdef': 'lava/baremetal-tests/failing-open-enoent.yml'
                 }
                 ],
             'timeout': 18000
