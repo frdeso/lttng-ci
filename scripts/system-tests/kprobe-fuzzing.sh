@@ -39,13 +39,16 @@ for i in $(seq 0 "$NB_KPROBE_PER_ITER" "$nb_syms"); do
 	# pipe redirections.
 	echo "$syms" | head -n $((i+NB_KPROBE_PER_ITER)) | tail -n $NB_KPROBE_PER_ITER |awk '{print "lttng enable-event --kernel --function=" $1 " " $1}' > lttng-enable-event.sh
 
-	# Destroy previous session and create a new one
+	# Make sure the lttng-enable-event.sh file is save to disk.
+	sync
+
+	# Create a new session.
 	lttng create "$SESSION_NAME"
 	set +x
 	echo 'Enabling events...'
 
 	# Expect commands to fail, turn off early exit of shell script on
-	# non-zero return value
+	# non-zero return value.
 	set +e
 	source  ./lttng-enable-event.sh
 	set -e
