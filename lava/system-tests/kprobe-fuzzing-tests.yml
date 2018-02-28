@@ -4,8 +4,8 @@ metadata:
         description: "Run kprobe fuzzing test suite"
 install:
         git-repos:
-                - url: https://github.com/lttng/lttng-ci
-                  destination: ci
+                - url: https://github.com/frdeso/lttng-ci
+                  destination: lava_attach_fuzzing_commands
                   branch: master
         steps:
                 - export TMPDIR="/tmp"
