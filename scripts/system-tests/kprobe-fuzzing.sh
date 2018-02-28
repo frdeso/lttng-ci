@@ -57,7 +57,6 @@ for i in $(seq 0 "$NB_KPROBE_PER_ITER" "$nb_syms"); do
 	# Run stress util to generate some kernel activity
 	stress --cpu 2 --io 4 --vm 2 --vm-bytes 128M --hdd 3 --timeout 5s
 
-	lttng list "$SESSION_NAME"
 	lttng destroy "$SESSION_NAME"
 	set +x
 done
