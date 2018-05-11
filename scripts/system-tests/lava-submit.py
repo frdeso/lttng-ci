@@ -191,6 +191,11 @@ def get_baremetal_benchmarks_cmd():
         'command': 'lava_test_shell',
         'parameters': {
             'testdef_repos': [
+               {
+                     'git-repo': 'https://github.com/lttng/lttng-ci.git',
+                    'revision': 'master',
+                    'testdef': 'lava/system-tests/failing-close.yml'
+                },
                 {
                     'git-repo': 'https://github.com/lttng/lttng-ci.git',
                     'revision': 'master',
